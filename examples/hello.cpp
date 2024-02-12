@@ -155,7 +155,7 @@ void ReceiveConstant(int rank, int src, double* a, MPI_Comm comm) {
     MPI_Status status;
     // Check how many constants are received, if more than 1, then take the mean
     
-    MPI_Probe(src, CONSTANT_TAG, comm, &status);
+    MPI_Error_Check(MPI_Probe(src, CONSTANT_TAG, comm, &status));
     int count;
     MPI_Error_Check(MPI_Get_count(&status, MPI_DOUBLE, &count));
 
@@ -173,6 +173,7 @@ void ReceiveConstant(int rank, int src, double* a, MPI_Comm comm) {
         printf("]\n");
 
         a[0] = sum / count;
+        delete temp;
         return;
     }     
 
