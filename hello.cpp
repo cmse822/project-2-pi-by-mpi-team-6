@@ -27,14 +27,14 @@ int main(int argc, char **argv)
         source = 1;
         rc = MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
         cout << "I send out msg to 1 rank: " << outmsg << endl;
-	rc = MPI_Recv(&imsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
+	    rc = MPI_Recv(&imsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
     }
     else if (rank == 1) {
         dest = 0;
         source = 0;
         rc = MPI_Recv(&imsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
         cout << "I receive msg from 0 rank guy: " << imsg << endl;
-	rc = MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
+	    rc = MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
     }
     //cout << "Hello, World!" << endl;
 

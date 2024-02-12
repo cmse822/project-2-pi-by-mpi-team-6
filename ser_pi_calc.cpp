@@ -16,6 +16,7 @@
 #include <fstream>
 #include <string>
 #include <filesystem>
+#include <stdlib.h>
 
 std::vector<std::string> run_types = {"SAME ROUND FOR EACH PROCESS", "DIVIDE ROUND AMONG PROCESSES"};
 
@@ -31,7 +32,7 @@ struct RunData {
 void WriteToCSV(RunData data);
 
 // SIde note: Reduce VS code version to 1.85 if having trouble using ssh tunnel
-void srandom (unsigned seed);  
+void srand (unsigned seed);  
 double dboard (int darts);
 
 int DARTS=10000;   	/* number of throws at dartboard */
@@ -73,7 +74,7 @@ if(rank == 0)
 
 // SAME ROUND FOR EACH PROCESS
 {
-   srandom (5);            /* seed the random number generator */
+   srand (5);            /* seed the random number generator */
    double avepi=0;       	/* average pi value for all iterations */
    double overall_avepi = 0;
    
@@ -123,7 +124,7 @@ MPI_Barrier(MPI_COMM_WORLD);
 // DIVIDE ROUND AMONG PROCESSES
 ///////////////////////////////
 {
-   srandom (5);            /* seed the random number generator */
+   srand (5);            /* seed the random number generator */
 
    double avepi= 0;
    double overall_avepi = 0;
@@ -203,7 +204,7 @@ void WriteToCSV(RunData data) {
  * dboard
  *****************************************************************************/
 #define sqr(x)	((x)*(x))
-long random(void);
+// long rand(void);
 
 // double get_norm(double x1, double y1) {
 //    return sqrt(sqr(x1) + sqr(y1));
@@ -258,9 +259,9 @@ double dboard(int darts)
 
    for (n = 1; n <= darts; n++) {
       /* generate random numbers for x and y coordinates */
-      r = (double)random()/cconst;
+      r = (double)rand()/cconst;
       x_coord = (2.0 * r) - 1.0;
-      r = (double)random()/cconst;
+      r = (double)rand()/cconst;
       y_coord = (2.0 * r) - 1.0;
 
       /* if dart lands in circle, increment score */
