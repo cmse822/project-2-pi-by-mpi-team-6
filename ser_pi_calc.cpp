@@ -26,6 +26,7 @@ struct RunData {
    int total_darts;
    int darts_per_task;
    double time_taken;
+   double pi_est;
 };
 void WriteToCSV(RunData data);
 
@@ -109,6 +110,7 @@ if(rank == 0)
       data.total_darts = DARTS;
       data.darts_per_task = DARTS / numtasks;
       data.time_taken = time_taken;
+      data.pi_est = overall_avepi/numtasks;
       WriteToCSV(data);
    }
 
@@ -160,6 +162,7 @@ MPI_Barrier(MPI_COMM_WORLD);
       data.total_darts = DARTS;
       data.darts_per_task = DARTS / numtasks;
       data.time_taken = time_taken;
+      data.pi_est = overall_avepi/numtasks;
       WriteToCSV(data);
    }
 
@@ -179,14 +182,20 @@ void WriteToCSV(RunData data) {
    // Check if file exists
    if (!std::filesystem::exists("data.csv")) {
       file.open("data.csv");
-      file << "Run Type,Total Rounds,Rounds per Task,Total Darts,Darts per Task,Time Taken\n";
+      file << "run_type,total_rounds,rounds_per_task,total_darts,darts_per_task,time_taken,pi_est\n";
       file.close();
    }
 
 
 
    file.open("data.csv", std::ios_base::app);
-   file << data.run_type << "," << data.total_rounds << "," << data.rounds_per_task << "," << data.total_darts << "," << data.darts_per_task << "," << data.time_taken << "\n";
+   file <<  data.run_type << "," <<
+            data.total_rounds << "," <<
+            data.rounds_per_task << "," <<
+            data.total_darts << "," <<
+            data.darts_per_task << "," <<
+            data.time_taken << "," << data.pi_est << "\n";
+
    file.close();
 }
 

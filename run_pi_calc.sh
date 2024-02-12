@@ -1,5 +1,5 @@
 
-mpic++ -o ser_pi_calc ser_pi_calc.cpp -std=c++17
+mpic++ -o ser_pi_calc ser_pi_calc.cpp -std=c++17 -O3
 
 # Check if file exists, if exist delete it
 if [ -f "data.csv" ]; then
