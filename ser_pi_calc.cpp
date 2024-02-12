@@ -13,20 +13,34 @@
 #include <vector>
 #include <math.h>
 #include <mpi.h>
+#include <fstream>
+#include <string>
+#include <filesystem>
+
+std::vector<std::string> run_types = {"SAME ROUND FOR EACH PROCESS", "DIVIDE ROUND AMONG PROCESSES"};
+
+struct RunData {
+   std::string run_type;
+   int total_rounds;
+   int rounds_per_task;
+   int total_darts;
+   int darts_per_task;
+   double time_taken;
+};
+void WriteToCSV(RunData data);
 
 // SIde note: Reduce VS code version to 1.85 if having trouble using ssh tunnel
 void srandom (unsigned seed);  
 double dboard (int darts);
 
-#define DARTS 10000   	/* number of throws at dartboard */
-#define ROUNDS 100    	/* number of times "darts" is iterated */
-#define THRESHOLD 1
+int DARTS=10000;   	/* number of throws at dartboard */
+int ROUNDS=100;    	/* number of times "darts" is iterated */
+int THRESHOLD=1;   /* default is 1, e.g. maximum distance from (0,0) to be considered inside the circle */
 
 int main(int argc, char *argv[])
 {
 double pi;          	/* average of pi after "darts" is thrown */
-double avepi;       	/* average pi value for all iterations */
-int i, n;
+int n;
 MPI_Status Stat;
 int dest;
 int source;
@@ -35,32 +49,146 @@ int count;
 int numtasks;
 int rank;
 
+// Get number of ROUNDS and DARTS from command line
+if(argc == 3) {
+   ROUNDS = atoi(argv[1]);
+   DARTS = atoi(argv[2]);
+} else {
+   printf("Usage: %s <number of rounds> <number of darts>\n", argv[0]);
+   exit(1);
+}
+
 MPI_Init(&argc,&argv);
 MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-printf("Starting serial version of pi calculation using dartboard algorithm...\n");
-srandom (5);            /* seed the random number generator */
+if(rank == 0)
+   printf("Starting serial version of pi calculation using dartboard algorithm...\n");
 
 
-avepi = 0;
-double overall_avepi = 0;
 // darts / num_tasks = number for each thread = 10000/4 = 2500
 // each process wil do 2500 dart throws at board and get average pi
 // MPI_SUM average pi's from each process
-for (i = 0; i < ROUNDS; i++) {
-   /* Perform pi calculation on serial processor */
-   pi = dboard(DARTS / numtasks);
-   avepi = ((avepi * i) + pi)/(i + 1); 
-   // MPI_REDUCE HERE WITH MPI_SUM as ARGUMENT
-   MPI_Reduce(&avepi, &overall_avepi, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-   printf("   After %3d throws, average value of pi = %10.8f\n",
-         (DARTS * (i + 1)),avepi);
+
+// SAME ROUND FOR EACH PROCESS
+{
+   srandom (5);            /* seed the random number generator */
+   double avepi=0;       	/* average pi value for all iterations */
+   double overall_avepi = 0;
+   
+   auto now = MPI_Wtime();
+
+   if(rank == 0){
+      printf("=====================================================\n");
+      printf("SAME ROUND FOR EACH PROCESSS\n");
+      printf("\tDarts per process: %d\n", DARTS / numtasks);
+   }
+
+   for (int i = 0; i < ROUNDS; i++) {
+      /* Perform pi calculation on serial processor */
+      pi = dboard(DARTS / numtasks);
+      avepi = ((avepi * i) + pi)/(i + 1); 
+      // MPI_REDUCE HERE WITH MPI_SUM as ARGUMENT
    }    
-printf("\nReal value of PI: 3.1415926535897 \n");
+
+   MPI_Reduce(&avepi, &overall_avepi, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+
+   if(rank==0){
+
+      printf("\nFound %f, Real value of PI: 3.1415926535897 \n", overall_avepi/numtasks);
+      
+      auto time_taken = MPI_Wtime() - now;
+      printf("Time taken: %f\n", time_taken);
+
+      printf("FINISHED DIVIDE ROUND AMONG PROCESSES\n");
+      printf("=====================================================\n");
+      RunData data;
+      data.run_type = run_types[0];
+      data.total_rounds = ROUNDS;
+      data.rounds_per_task = -1;
+      data.total_darts = DARTS;
+      data.darts_per_task = DARTS / numtasks;
+      data.time_taken = time_taken;
+      WriteToCSV(data);
+   }
+
+}
+// END OF SAME ROUND FOR EACH PROCESS
+
+MPI_Barrier(MPI_COMM_WORLD);
+
+///////////////////////////////
+// DIVIDE ROUND AMONG PROCESSES
+///////////////////////////////
+{
+   srandom (5);            /* seed the random number generator */
+
+   double avepi= 0;
+   double overall_avepi = 0;
+
+   auto now = MPI_Wtime();
+   int rounds_per_proc = ROUNDS/numtasks;
+   if(rank == 0){
+      printf("=====================================================\n");
+      printf("DIVIDE ROUND AMONG PROCESSES\n");
+      printf("\tRounds per process: %d\n", rounds_per_proc);
+      printf("\tDarts per process: %d\n", DARTS / numtasks);
+
+   }
+
+   for (int i = 0; i < rounds_per_proc; i++) {
+      pi = dboard(DARTS / numtasks);
+      avepi = ((avepi * i) + pi)/(i + 1);
+   }
+   
+   MPI_Reduce(&avepi, &overall_avepi, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+
+   // Create data for CSV
+   if(rank==0){
+
+      printf("\nFound %f, Real value of PI: 3.1415926535897 \n", overall_avepi/numtasks);
+      
+      auto time_taken = MPI_Wtime() - now;
+      printf("Time taken: %f\n", time_taken);
+
+      printf("FINISHED DIVIDE ROUND AMONG PROCESSES\n");
+      printf("=====================================================\n");
+      RunData data;
+      data.run_type = run_types[1];
+      data.total_rounds = ROUNDS;
+      data.rounds_per_task = rounds_per_proc;
+      data.total_darts = DARTS;
+      data.darts_per_task = DARTS / numtasks;
+      data.time_taken = time_taken;
+      WriteToCSV(data);
+   }
+
+}
+//////////////////////////////////////
+// END OF DIVIDE ROUND AMONG PROCESSES
+//////////////////////////////////////
+
+
+   MPI_Finalize();
 }
 
 
+void WriteToCSV(RunData data) {
+   std::ofstream file;
+   
+   // Check if file exists
+   if (!std::filesystem::exists("data.csv")) {
+      file.open("data.csv");
+      file << "Run Type,Total Rounds,Rounds per Task,Total Darts,Darts per Task,Time Taken\n";
+      file.close();
+   }
+
+
+
+   file.open("data.csv", std::ios_base::app);
+   file << data.run_type << "," << data.total_rounds << "," << data.rounds_per_task << "," << data.total_darts << "," << data.darts_per_task << "," << data.time_taken << "\n";
+   file.close();
+}
 
 /*****************************************************************************
  * dboard
