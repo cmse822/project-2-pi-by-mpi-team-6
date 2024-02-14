@@ -22,6 +22,7 @@ std::vector<std::string> run_types = {"SAME ROUND FOR EACH PROCESS", "DIVIDE ROU
 
 struct RunData {
    std::string run_type;
+   int ranks;
    int total_rounds;
    int rounds_per_task;
    int total_darts;
@@ -30,14 +31,12 @@ struct RunData {
    double pi_est;
 };
 void WriteToCSV(RunData data);
-
-// SIde note: Reduce VS code version to 1.85 if having trouble using ssh tunnel
 void srand (unsigned seed);  
 double dboard (int darts);
 
 int DARTS=10000;   	/* number of throws at dartboard */
 int ROUNDS=100;    	/* number of times "darts" is iterated */
-int THRESHOLD=1;   /* default is 1, e.g. maximum distance from (0,0) to be considered inside the circle */
+int THRESHOLD=1;     /* default is 1, e.g. maximum distance from (0,0) to be considered inside the circle */
 
 int main(int argc, char *argv[])
 {
@@ -74,8 +73,8 @@ if(rank == 0)
 
 // SAME ROUND FOR EACH PROCESS
 {
-   srand (5);            /* seed the random number generator */
-   double avepi=0;       	/* average pi value for all iterations */
+   srand (5);                 /* seed the random number generator */
+   double avepi=0;       	   /* average pi value for all iterations */
    double overall_avepi = 0;
    
    auto now = MPI_Wtime();
@@ -90,13 +89,13 @@ if(rank == 0)
       /* Perform pi calculation on serial processor */
       pi = dboard(DARTS / numtasks);
       avepi = ((avepi * i) + pi)/(i + 1); 
-      // MPI_REDUCE HERE WITH MPI_SUM as ARGUMENT
    }    
 
+   /* Take avepi from each process and sums to overall_avepi. */
    MPI_Reduce(&avepi, &overall_avepi, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
 
    if(rank==0){
-
+      /* Divide by num processes to get the avepi over all processes  */
       printf("\nFound %f, Real value of PI: 3.1415926535897 \n", overall_avepi/numtasks);
       
       auto time_taken = MPI_Wtime() - now;
@@ -106,6 +105,7 @@ if(rank == 0)
       printf("=====================================================\n");
       RunData data;
       data.run_type = run_types[0];
+      data.ranks = numtasks;
       data.total_rounds = ROUNDS;
       data.rounds_per_task = -1;
       data.total_darts = DARTS;
@@ -158,6 +158,7 @@ MPI_Barrier(MPI_COMM_WORLD);
       printf("=====================================================\n");
       RunData data;
       data.run_type = run_types[1];
+      data.ranks = numtasks;
       data.total_rounds = ROUNDS;
       data.rounds_per_task = rounds_per_proc;
       data.total_darts = DARTS;
@@ -183,7 +184,7 @@ void WriteToCSV(RunData data) {
    // Check if file exists
    if (!std::filesystem::exists("data.csv")) {
       file.open("data.csv");
-      file << "run_type,total_rounds,rounds_per_task,total_darts,darts_per_task,time_taken,pi_est\n";
+      file << "run_type,ranks,total_rounds,rounds_per_task,total_darts,darts_per_task,time_taken,pi_est\n";
       file.close();
    }
 
@@ -191,6 +192,7 @@ void WriteToCSV(RunData data) {
 
    file.open("data.csv", std::ios_base::app);
    file <<  data.run_type << "," <<
+            data.ranks << "," <<
             data.total_rounds << "," <<
             data.rounds_per_task << "," <<
             data.total_darts << "," <<
@@ -204,27 +206,6 @@ void WriteToCSV(RunData data) {
  * dboard
  *****************************************************************************/
 #define sqr(x)	((x)*(x))
-// long rand(void);
-
-// double get_norm(double x1, double y1) {
-//    return sqrt(sqr(x1) + sqr(y1));
-// }
-
-
-// two vectors
-// for loop over one of the vectors, same size
-// call get_norm
-// start with 0
-
-// int get_total_inner_points(std::vector<int> x1, std::vector<int> y1) {
-//    int number_of_points = 0;
-//    for (int i = 0; i < x1.size(); i++) {
-//       if(get_norm(x1[i], y1[i]) < THRESHOLD) {
-//          number_of_points++;
-//       }
-//    }
-//    return number_of_points;
-// }
 
 double dboard(int darts)
 {
