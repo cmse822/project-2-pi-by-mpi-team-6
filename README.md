@@ -21,12 +21,45 @@ In this project you will explore using basic MPI collectives on HPCC. After fini
 
 As a group, complete the following exercises from [HPSC](../assets/EijkhoutIntroToHPC2020.pdf).
 
-- Exercise 2.18 -- HUNTER
-- Exercise 2.19 -- HUNTER
-- Exercise 2.21 -- HUNTER
-- Exercise 2.22 -- HUNTER
-- Exercise 2.23 -- HUNTER
-- Exercise 2.27 -- ONUR
+- Exercise 2.18
+The problem with the code is that both of the loops in the code operate on the same array without any synchronization between the loops to make sure that they behave correctly when executed.
+- Exercise 2.19
+Assigning chunk sizes of 1 to the threads can lead to false sharing which will cause poor performance. False sharing can happen when multiple threads modify variables that happen in the same cache which causes unnecessary synchronization which can lead to performance degradation. To avoid false sharing a good chunksize to use would distribute iterations in a way that each thread operates on a block of memory larger than a cache line. Some experimentation might be needed to find the proper chunksize.
+- Exercise 2.21
+    int myInfo;
+    
+    if (myTaskID == 0) {
+        // Code for process 0
+        myInfo = 123; // Example data to be sent
+        MPI_Send(&myInfo, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+    } else if (myTaskID == 1) {
+        // Code for process 1
+        MPI_Recv(&myInfo, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
+        // Process received data from process 0
+        printf("Received data from process 0: %d\n", myInfo);
+    }
+
+    MPI_Finalize();
+    return 0;
+}
+- Exercise 2.22
+1. Initialize MPI
+2. Determine process rank (myTaskID) and total number of processes (numTasks)
+3. Split the work among processes, ensuring each process has appropriate data
+4. Perform the computation locally
+5. Perform non-blocking sends and receives to exchange necessary boundary data
+6. Wait for all non-blocking communication to complete
+7. Continue with local computations
+8. Finalize MPI
+The disadvantage of a non-blocking solution is that there will be increased complexity and some difficulty ensuring correct synchronization
+- Exercise 2.23
+When looking at bandwidth of a distributed model each MPI process communicates independently with the counterparts and nodes four separate messages would need to be sent between two nodes. In a hybrid model MPI detects processes on the same node and optimizes with shared memory so messages can be bundled. So only one message would need to be sent between two nodes.
+When looking at latency the distributed model would have to deal with the latency of four message transmissions. In the hybrid model since the messages are bundled the latency would be reduced to the latency of a single message transmission.
+- Exercise 2.27
+When computation takes no time and there is only communication overlapping the two the gain is maximized since there is no computation all time is used toward communication. This allows for maximum bandwidth utilization and potentially reduce overall communication time.
+When communication takes no time and there is only computation there is no opportunity to overlap computation and communication so there is no benefit to overlapping the two.
+So in general when both computation and communication take some time overlapping both can provide significant benefits. By starting communication while computation is going idle time can be reduced. Overall execution time can also be reduced. It is especially useful to overlap when communication is a significant portion of the total execution time.
+
 
 Include your responses to these exercises in your project write-up.
 
