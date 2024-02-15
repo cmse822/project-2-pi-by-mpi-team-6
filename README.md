@@ -43,6 +43,7 @@ Assigning chunk sizes of 1 to the threads can lead to false sharing which will c
     return 0;
 }
 - Exercise 2.22
+
 1. Initialize MPI
 2. Determine process rank (myTaskID) and total number of processes (numTasks)
 3. Split the work among processes, ensuring each process has appropriate data
@@ -51,11 +52,16 @@ Assigning chunk sizes of 1 to the threads can lead to false sharing which will c
 6. Wait for all non-blocking communication to complete
 7. Continue with local computations
 8. Finalize MPI
+
 The disadvantage of a non-blocking solution is that there will be increased complexity and some difficulty ensuring correct synchronization
+
 - Exercise 2.23
+
 When looking at bandwidth of a distributed model each MPI process communicates independently with the counterparts and nodes four separate messages would need to be sent between two nodes. In a hybrid model MPI detects processes on the same node and optimizes with shared memory so messages can be bundled. So only one message would need to be sent between two nodes.
 When looking at latency the distributed model would have to deal with the latency of four message transmissions. In the hybrid model since the messages are bundled the latency would be reduced to the latency of a single message transmission.
+
 - Exercise 2.27
+
 When computation takes no time and there is only communication overlapping the two the gain is maximized since there is no computation all time is used toward communication. This allows for maximum bandwidth utilization and potentially reduce overall communication time.
 When communication takes no time and there is only computation there is no opportunity to overlap computation and communication so there is no benefit to overlapping the two.
 So in general when both computation and communication take some time overlapping both can provide significant benefits. By starting communication while computation is going idle time can be reduced. Overall execution time can also be reduced. It is especially useful to overlap when communication is a significant portion of the total execution time.
