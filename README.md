@@ -22,10 +22,13 @@ In this project you will explore using basic MPI collectives on HPCC. After fini
 As a group, complete the following exercises from [HPSC](../assets/EijkhoutIntroToHPC2020.pdf).
 
 - Exercise 2.18
+
 The problem with the code is that both of the loops in the code operate on the same array without any synchronization between the loops to make sure that they behave correctly when executed.
 - Exercise 2.19
+
 Assigning chunk sizes of 1 to the threads can lead to false sharing which will cause poor performance. False sharing can happen when multiple threads modify variables that happen in the same cache which causes unnecessary synchronization which can lead to performance degradation. To avoid false sharing a good chunksize to use would distribute iterations in a way that each thread operates on a block of memory larger than a cache line. Some experimentation might be needed to find the proper chunksize.
 - Exercise 2.21
+
     int myInfo;
     
     if (myTaskID == 0) {
@@ -42,6 +45,7 @@ Assigning chunk sizes of 1 to the threads can lead to false sharing which will c
     MPI_Finalize();
     return 0;
 }
+
 - Exercise 2.22
 
 1. Initialize MPI
