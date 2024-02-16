@@ -266,7 +266,7 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
     |-------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|
     | 1E3   | 0.00977261   | 0.00558326   | 0.00277997   | 0.00197969   | 0.0117149    | 0.010407     | 0.0174867    |
     | 1E6   | 3.64086      | 1.82106      | 0.972136     | 0.546443     | 0.310115     | 0.196127     | 0.130844     |
-    | 1E9   | ...          | ...          | ...          | ...          | ...          | ...          | ...          |
+    | 1E9   | 2615.84      | 1301.17      | 650.311      | 326.866      | 163.577      | 82.0594      | 44.9402      |
 
     **DIVIDED ROUNDS PER PROCESS**
 
@@ -274,7 +274,7 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
     |-------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|
     | 1E3   | 0.00803623   | 0.00243511   | 0.000715013  | 0.000194071  | 8.03005e-05  | 0.000891293  | 0.00109989   |
     | 1E6   | 3.51798      | 0.898393     | 0.227843     | 0.0586256    | 0.0148855    | 0.00428933   | 0.00108942   |
-    | 1E9   | ...          | ...          | ...          | ...          | ...          | ...          | ...          |
+    | 1E9   | 2663.37      | 654.638      | 163.787      | 39.5689      |   9.95769    | 2.50678      | 0.490835     |
 
 5. For each processor count, plot the resulting errors in your computed values of `pi` compared to the true value as functions of the number of darts used to compute it. Use log-log scaling on this plot. What is the rate of convergence of your algorithm for computing `pi`? Does this value make sense? Does the error or rate of convergence to the correct answer vary with processor count? Should it?
 
@@ -314,11 +314,46 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
 
     **SAME ROUNDS PER PROCESS**
 
-    TODO: CHRIS
+    *1E3 Darts*
+    ![Run-time Vs. Processor Count - 1E3 Darts - Same Rounds for Each Process](plots/pi_runtime_versus_processor_count_1000_darts_same_round.png)
+
+    *1E6 Darts*
+    ![Run-time Vs. Processor Count - 1E6 Darts - Same Rounds for Each Process](plots/pi_runtime_versus_processor_count_1000000_darts_same_round.png)
+
+    *1E9 Darts*
+    ![Run-time Vs. Processor Count - 1E9 Darts - Same Rounds for Each Process](plots/pi_runtime_versus_processor_count_1000000000_darts_same_round.png)
 
     **DIVIDED ROUNDS PER PROCESS**
 
-    TODO: CHRIS
+    *1E3 Darts*
+    ![Run-time Vs. Processor Count - 1E3 Darts - Divided Rounds for Each Process](plots/pi_runtime_versus_processor_count_1000_darts_divided_round.png)
+
+    *1E6 Darts*
+    ![Run-time Vs. Processor Count - 1E6 Darts - Divided Rounds for Each Process](plots/pi_runtime_versus_processor_count_1000000_darts_divided_round.png)
+
+    *1E9 Darts*
+    ![Run-time Vs. Processor Count - 1E9 Darts - Divided Rounds for Each Process](plots/pi_runtime_versus_processor_count_1000000000_darts_divided_round.png)
+
+    And here are the calculated parallel scaling efficiencies by dart count. Since it specifies only calculating by dart count, I sum the actual runtimes and ideal runtimes for each processor and then do the following equation:
+
+    $Efficiency = \frac{Actual Runtime}{Ideal Runtime} \times 100$
+
+    For each dart count, here is the resulting efficiencies:
+    **SAME ROUNDS PER PROCESS**
+    | Dart Count | Efficiencies (%) |
+    |------------|------------------|
+    |    1E3     |      32.47%      |
+    |    1E6     |      94.84%      |
+    |    1E9     |     100.12%      |
+
+    **DIVIDED ROUNDS PER PROCESS**
+    | Dart Count | Efficiencies (%) |
+    |------------|------------------|
+    |    1E3     |     118.55%%     |
+    |    1E6     |     147.81%      |
+    |    1E9     |     149.54%      |
+
+    The parallel performance does vary with dart count. The efficiency is supposed to tell us how well the code scales as the number of darts increase. And we can see that in this case here, where the efficiency increases as dart count goes up.
 
 7. Going further. Try running your code on different node types on HPCC with varied core counts. In particular, try to ensure that your runs utilize multiple nodes so that the communication network is used. Do you see a change in the communication cost when the job is run on more than one node?
 
