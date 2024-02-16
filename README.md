@@ -200,11 +200,11 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
       - $TotalExecutionTime = n - 1 \approx O(n)$
     #### Question 2.4
     - Yes, not every line is communication lines, for example, vertical lines are not communication lines, they are computation lines.
-    - ![Computation Tree](plots/q3_2_4.png)
+    ![Computation Tree](plots/q3_2_4.png)
     - Total number of communications are 3 for the case of 4 processors with 16 elements.
     #### Question 2.5
     - Here is a depiction of algorithm's inner workings:
-    - ![Algorithm's inner workings](plots/q3_2_5.png)
+    ![Algorithm's inner workings](plots/q3_2_5.png)
     - Let's name those loops, in order
       - `Loop 1`
       - `Loop 2 Outer`
@@ -216,7 +216,7 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
     #### SubQuestion(2)
     - Yes, they are completely independen, if we are talking about operations in the `Loop 1`.
     #### SubQuestion(3)
-    - $x[2, 1] \larr x[1, 1] + x[2, 0]$
+    - $x[2, 1] ← x[1, 1] + x[2, 0]$
     - Given that $x[1, 1]$ is known and since $x[2, 0]$ is already calculated in `Loop 1`, we can calculate $x[2, 1]$ without waiting for `i=1` to finish.
     #### SubQuestion(4)
     - Yes, we can do that, but we need to pay attention to the synchronization of the threads/processors.
