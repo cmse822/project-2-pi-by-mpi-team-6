@@ -1,0 +1,16 @@
+Convergence Rate for each Processor Count [SAME ROUND FOR EACH PROCESS]:
+Processor Count (Ranks): 1, Convergence Rate: -0.6724250042795321
+Processor Count (Ranks): 2, Convergence Rate: -0.22614898985047674
+Processor Count (Ranks): 4, Convergence Rate: -0.705045005611142
+Processor Count (Ranks): 8, Convergence Rate: -1.0266132292020036
+Processor Count (Ranks): 16, Convergence Rate: -0.5746769442071014
+Processor Count (Ranks): 32, Convergence Rate: -0.4471491976608736
+Processor Count (Ranks): 64, Convergence Rate: -0.5083539327941848
+Convergence Rate for each Processor Count [DIVIDE ROUND AMONG PROCESSES]:
+Processor Count (Ranks): 1, Convergence Rate: -0.6724250042795321
+Processor Count (Ranks): 2, Convergence Rate: -0.705045005611142
+Processor Count (Ranks): 4, Convergence Rate: -0.6630251578269445
+Processor Count (Ranks): 8, Convergence Rate: -0.4756643895374857
+Processor Count (Ranks): 16, Convergence Rate: -1.170920299092988
+Processor Count (Ranks): 32, Convergence Rate: -0.4126730696473827
+Processor Count (Ranks): 64, Convergence Rate: -0.5229919757599767
