@@ -178,8 +178,50 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
 
     This output is because the program now runs in parallel, on four separate processes. Each process executes the same code independently.
 
-5. Complete Exercises 2.3, 2.4, and 2.5 in the [Parallel Programing](../assets/EijkhoutParallelProgramming.pdf) book. -- ALL ONUR
-
+5. Complete Exercises 2.3, 2.4, and 2.5 in the [Parallel Programing](../assets/EijkhoutParallelProgramming.pdf) book.
+   
+    ### Answers
+    #### Question 2.3
+    ##### SubQuestion(a)
+    - Let's assume that we have $k$ number of processors with $n$ numbers to make the sum operation.
+    - We need to copy $n/k$ numbers to each processor and they will each make the sum of their own numbers, in total $n/k$ operations.
+    - After finalizing the local computations, half of the processors ($k/2$) will receive single number from the neighboring processor and do another sum operation.
+    - We can create a computation tree for this reduction algorithm, and, depth of the tree would be $\log_2(k)$, where in every single depth, other than the first one, we have 1 unit of communication and 1 unit of computation operation.
+    - $TotalExecutionTime = \underbrace{\frac{n}{k} - 1}_{NumSumsInFirstDepth} + \underbrace{2 * log_2(k)}_{Communication + Sum}$
+    - $TotalComputationTime$ = $\frac{n}{k} - 1 + log_2(k)$
+    - $TotalCommunicationTime$ = $log_2(k)$
+    - Hence, $TotalComputationTime$ and $TotalCommunicationTime$ are both logarithmic functions of $k$, **but not equal to each other!**
+      - They can only be equal if we are considering reduction computation time, then, they can be equal	
+    ##### SubQuestion(b)
+    - In this case our total execution wime will change:
+    - Parallel Case:
+      - $TotalExecutionTime = \underbrace{\frac{n}{k} - 1}_{NumSumsInFirstDepth} + \underbrace{k - 1}_{WorstCaseEndToEndCommunication} \approx  O(n)$
+    - Sequential Case:
+      - $TotalExecutionTime = n - 1 \approx O(n)$
+    #### Question 2.4
+    - Yes, not every line is communication lines, for example, vertical lines are not communication lines, they are computation lines.
+    - ![Computation Tree](plots/q3_2_4.png)
+    - Total number of communications are 3 for the case of 4 processors with 16 elements.
+    #### Question 2.5
+    - Here is a depiction of algorithm's inner workings:
+    - ![Algorithm's inner workings](plots/q3_2_5.png)
+    - Let's name those loops, in order
+      - `Loop 1`
+      - `Loop 2 Outer`
+      - `Loop 2 Inner`
+    #### SubQuestion(1)
+    - Some of them are independent, for example, `Loop 1` and `Loop 2 Outer` are independent, but `Loop 2 Inner` is dependent on `Loop 2 Outer`.
+    - But with slight change, if we are talking about `Loop 2 Outer/Inner`, we can make `Loop 2 Inner` less dependent of `Loop 2 Outer`.
+    - In every step for $j$, we can do 1 more operation for $i+1$, which is next row. We just need to pay attention to the synchorization of the threads/processors.
+    #### SubQuestion(2)
+    - Yes, they are completely independen, if we are talking about operations in the `Loop 1`.
+    #### SubQuestion(3)
+    - $x[2, 1] \larr x[1, 1] + x[2, 0]$
+    - Given that $x[1, 1]$ is known and since $x[2, 0]$ is already calculated in `Loop 1`, we can calculate $x[2, 1]$ without waiting for `i=1` to finish.
+    #### SubQuestion(4)
+    - Yes, we can do that, but we need to pay attention to the synchronization of the threads/processors.
+    - Every column operation, $j$, in `Loop 2 Inner` allows one more column operation for the next row.
+    - We can picture the algorithm for synchronization is like a diagonal line from top right to bottom left.
 ## Part 4: Eat Some Pi
 
 Pi is the ratio of a circle's circumference to its diameter. As such, the value of pi can be computed as follows. Consider a circle of radius `r` inscribed in a square of side length `r`. Randomly generate points within the square. Determine the number of points in the square that are also in the circle. If `f=nc/ns` is the number of points in the circle divided by the number of points in the square then `pi` can be approximated as `pi ~ 4f`. Note that the more points generated, the better the approximation.
