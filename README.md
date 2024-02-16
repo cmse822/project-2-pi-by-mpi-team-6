@@ -187,7 +187,7 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
     - We need to copy $n/k$ numbers to each processor and they will each make the sum of their own numbers, in total $n/k$ operations.
     - After finalizing the local computations, half of the processors ($k/2$) will receive single number from the neighboring processor and do another sum operation.
     - We can create a computation tree for this reduction algorithm, and, depth of the tree would be $\log_2(k)$, where in every single depth, other than the first one, we have 1 unit of communication and 1 unit of computation operation.
-    - $TotalExecutionTime = \underbrace{\frac{n}{k} - 1}_{NumSumsInFirstDepth} + \underbrace{2 * log_2(k)}_{Communication + Sum}$
+    - $TotalExecutionTime = \underbrace{\frac{n}{k} - 1}\_{NumSumsInFirstDepth} + \underbrace{2 * log\_2(k)}\_{Communication + Sum}$
     - $TotalComputationTime$ = $\frac{n}{k} - 1 + log_2(k)$
     - $TotalCommunicationTime$ = $log_2(k)$
     - Hence, $TotalComputationTime$ and $TotalCommunicationTime$ are both logarithmic functions of $k$, **but not equal to each other!**
@@ -195,16 +195,16 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
     ##### SubQuestion(b)
     - In this case our total execution wime will change:
     - Parallel Case:
-      - $TotalExecutionTime = \underbrace{\frac{n}{k} - 1}_{NumSumsInFirstDepth} + \underbrace{k - 1}_{WorstCaseEndToEndCommunication} \approx  O(n)$
+      - $TotalExecutionTime = \underbrace{\frac{n}{k} - 1}\_{NumSumsInFirstDepth} + \underbrace{k - 1}\_{WorstCaseEndToEndCommunication} \approx  O(n)$
     - Sequential Case:
       - $TotalExecutionTime = n - 1 \approx O(n)$
     #### Question 2.4
     - Yes, not every line is communication lines, for example, vertical lines are not communication lines, they are computation lines.
-    ![Computation Tree](plots/q3_2_4.png)
+      - ![Computation Tree](https://github.com/cmse822/project-2-pi-by-mpi-team-6/blob/main/plots/q_3_2_4.png)
     - Total number of communications are 3 for the case of 4 processors with 16 elements.
     #### Question 2.5
     - Here is a depiction of algorithm's inner workings:
-    ![Algorithm's inner workings](plots/q3_2_5.png)
+      - ![Algorithm's inner workings](https://github.com/cmse822/project-2-pi-by-mpi-team-6/blob/main/plots/q3_2_5.png)
     - Let's name those loops, in order
       - `Loop 1`
       - `Loop 2 Outer`
