@@ -24,11 +24,14 @@ As a group, complete the following exercises from [HPSC](../assets/EijkhoutIntro
 - Exercise 2.18
 
 The problem with the code is that both of the loops in the code operate on the same array without any synchronization between the loops to make sure that they behave correctly when executed.
+
 - Exercise 2.19
 
 Assigning chunk sizes of 1 to the threads can lead to false sharing which will cause poor performance. False sharing can happen when multiple threads modify variables that happen in the same cache which causes unnecessary synchronization which can lead to performance degradation. To avoid false sharing a good chunksize to use would distribute iterations in a way that each thread operates on a block of memory larger than a cache line. Some experimentation might be needed to find the proper chunksize.
+
 - Exercise 2.21
 
+```c++
     int myInfo;
     
     if (myTaskID == 0) {
@@ -44,7 +47,7 @@ Assigning chunk sizes of 1 to the threads can lead to false sharing which will c
 
     MPI_Finalize();
     return 0;
-}
+```
 
 - Exercise 2.22
 
@@ -69,7 +72,6 @@ When looking at latency the distributed model would have to deal with the latenc
 When computation takes no time and there is only communication overlapping the two the gain is maximized since there is no computation all time is used toward communication. This allows for maximum bandwidth utilization and potentially reduce overall communication time.
 When communication takes no time and there is only computation there is no opportunity to overlap computation and communication so there is no benefit to overlapping the two.
 So in general when both computation and communication take some time overlapping both can provide significant benefits. By starting communication while computation is going idle time can be reduced. Overall execution time can also be reduced. It is especially useful to overlap when communication is a significant portion of the total execution time.
-
 
 Include your responses to these exercises in your project write-up.
 
@@ -179,7 +181,7 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
     This output is because the program now runs in parallel, on four separate processes. Each process executes the same code independently.
 
 5. Complete Exercises 2.3, 2.4, and 2.5 in the [Parallel Programing](../assets/EijkhoutParallelProgramming.pdf) book.
-   
+
     ### Answers
     #### Question 2.3
     ##### SubQuestion(a)
@@ -222,6 +224,7 @@ The following is a very quick tutorial on the basics of using HPCC for this clas
     - Yes, we can do that, but we need to pay attention to the synchronization of the threads/processors.
     - Every column operation, $j$, in `Loop 2 Inner` allows one more column operation for the next row.
     - We can picture the algorithm for synchronization is like a diagonal line from top right to bottom left.
+
 ## Part 4: Eat Some Pi
 
 Pi is the ratio of a circle's circumference to its diameter. As such, the value of pi can be computed as follows. Consider a circle of radius `r` inscribed in a square of side length `r`. Randomly generate points within the square. Determine the number of points in the square that are also in the circle. If `f=nc/ns` is the number of points in the circle divided by the number of points in the square then `pi` can be approximated as `pi ~ 4f`. Note that the more points generated, the better the approximation.
