@@ -14,9 +14,9 @@ Processor Count (Ranks): 8, Convergence Rate: -0.4756643895374857
 Processor Count (Ranks): 16, Convergence Rate: -1.170920299092988
 Processor Count (Ranks): 32, Convergence Rate: -0.4126730696473827
 Processor Count (Ranks): 64, Convergence Rate: -0.5229919757599767
-Run Type: SAME ROUND FOR EACH PROCESS, Total Darts: 1000, Overall Efficiency: 32.47%
-Run Type: SAME ROUND FOR EACH PROCESS, Total Darts: 1000000, Overall Efficiency: 94.84%
-Run Type: SAME ROUND FOR EACH PROCESS, Total Darts: 1000000000, Overall Efficiency: 100.12%
-Run Type: DIVIDE ROUND AMONG PROCESSES, Total Darts: 1000, Overall Efficiency: 118.55%
-Run Type: DIVIDE ROUND AMONG PROCESSES, Total Darts: 1000000, Overall Efficiency: 147.81%
-Run Type: DIVIDE ROUND AMONG PROCESSES, Total Darts: 1000000000, Overall Efficiency: 149.54%
+Run Type: SAME ROUND FOR EACH PROCESS, Total Darts: 1000, Overall Efficiency: 0.494
+Run Type: SAME ROUND FOR EACH PROCESS, Total Darts: 1000000, Overall Efficiency: 0.788
+Run Type: SAME ROUND FOR EACH PROCESS, Total Darts: 1000000000, Overall Efficiency: 0.988
+Run Type: DIVIDE ROUND AMONG PROCESSES, Total Darts: 1000, Overall Efficiency: 0.505
+Run Type: DIVIDE ROUND AMONG PROCESSES, Total Darts: 1000000, Overall Efficiency: 0.858
+Run Type: DIVIDE ROUND AMONG PROCESSES, Total Darts: 1000000000, Overall Efficiency: 0.984

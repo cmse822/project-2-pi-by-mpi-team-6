@@ -6,6 +6,7 @@ import numpy as np
 FILENAME = "data_readme_part4_q4.csv"
 SAME_ROUND = "SAME ROUND FOR EACH PROCESS"
 DIVIDE_ROUND = "DIVIDE ROUND AMONG PROCESSES"
+DEFAULT_ROUNDS = 100
 TRUE_PI = 3.141592653589793
 df = pd.read_csv(FILENAME)
 
@@ -40,12 +41,29 @@ def plot_runtime_versus_processor_count(run_type, total_darts):
     df_run_type_darts = df[(df['run_type'] == run_type) & (df['total_darts'] == total_darts)]
     
     plt.plot(df_run_type_darts['ranks'], df_run_type_darts['time_taken'], label=f"{total_darts} Darts", marker='o')
-
-    actual_runtimes = df_run_type_darts.groupby('total_darts')['time_taken'].sum().values
     ideal_scaling_line = df_run_type_darts['time_taken'].iloc[0] / df_run_type_darts['ranks']
-    ideal_runtimes = ideal_scaling_line.sum()
-    efficiency = calculate_scaling_efficiency(actual_runtimes, ideal_runtimes)
-    print(f"Run Type: {run_type}, Total Darts: {total_darts}, Overall Efficiency: {efficiency[0]:.2f}%")
+    speedup = df_run_type_darts['time_taken'].iloc[0] / df_run_type_darts['time_taken']
+    if run_type == DIVIDE_ROUND:
+        rounds_per_task_factor = DEFAULT_ROUNDS /df_run_type_darts['rounds_per_task']
+        ideal_scaling_line = ideal_scaling_line / rounds_per_task_factor
+        speedup = df_run_type_darts['time_taken'].iloc[0] / df_run_type_darts['time_taken']
+        speedup = speedup / rounds_per_task_factor
+        efficiency = (speedup / df_run_type_darts['ranks'])
+    else:
+        efficiency = speedup / df_run_type_darts['ranks']
+    
+    # print("ACTUAL")
+    # print(df_run_type_darts['time_taken'])
+    # print("IDEAL")
+    # print(ideal_scaling_line)
+    # print("SPEEDUP")
+    # print(speedup)
+    # print("EFFICIENCY")
+    # print(efficiency)
+
+    overall_efficiency = efficiency.sum() / df_run_type_darts['ranks'].count()
+    rounded_efficiency = round(overall_efficiency, 3)
+    print(f"Run Type: {run_type}, Total Darts: {total_darts}, Overall Efficiency: {rounded_efficiency}")
 
     plt.plot(df_run_type_darts['ranks'], ideal_scaling_line, '--', label=f"Ideal Scaling ({total_darts} Darts)")
 
@@ -54,7 +72,7 @@ def plot_runtime_versus_processor_count(run_type, total_darts):
     plt.ylabel("Runtime (seconds)")
     plt.legend()
     plt.grid(True)
-    if run_type == "SAME ROUND FOR EACH PROCESS":
+    if run_type == SAME_ROUND:
         plt.savefig('plots/pi_runtime_versus_processor_count_' + str(total_darts) + '_darts_same_round.png')
     else:
         plt.savefig('plots/pi_runtime_versus_processor_count_' + str(total_darts) + '_darts_divided_round.png')
@@ -77,20 +95,14 @@ def print_pi_convergence_rate_for_darts_used(run_type):
         convergence_rate = compute_convergence_rate(x, y)
         print(f"Processor Count (Ranks): {name}, Convergence Rate: {convergence_rate}")
 
-
-def calculate_scaling_efficiency(actual_runtimes, ideal_runtimes):
-    efficiencies = (ideal_runtimes / actual_runtimes) * 100
-    return efficiencies
-
 if __name__ == "__main__":
-    # plot_pi_error_for_darts_used(SAME_ROUND)
-    # plot_pi_error_for_darts_used(DIVIDE_ROUND)
-    # print_pi_convergence_rate_for_darts_used(SAME_ROUND)
-    # print_pi_convergence_rate_for_darts_used(DIVIDE_ROUND)
+    plot_pi_error_for_darts_used(SAME_ROUND)
+    plot_pi_error_for_darts_used(DIVIDE_ROUND)
+    print_pi_convergence_rate_for_darts_used(SAME_ROUND)
+    print_pi_convergence_rate_for_darts_used(DIVIDE_ROUND)
 
     dart_counts = df['total_darts'].unique()
     run_types = df['run_type'].unique()
-
     for run_type in run_types:
         for total_darts in dart_counts:
             plot_runtime_versus_processor_count(run_type, total_darts)

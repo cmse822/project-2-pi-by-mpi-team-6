@@ -334,30 +334,37 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
     *1E9 Darts*
     ![Run-time Vs. Processor Count - 1E9 Darts - Divided Rounds for Each Process](https://github.com/cmse822/project-2-pi-by-mpi-team-6/blob/main/plots/pi_runtime_versus_processor_count_1000000000_darts_divided_round.png)
 
-    And here are the calculated parallel scaling efficiencies by dart count. Since it specifies only calculating by dart count, I sum the actual runtimes and ideal runtimes for each processor and then do the following equation:
+    Since it specifies only calculating by dart count, I get the average efficiency across all ranks. Here are the equations used:
 
-    $Efficiency = \frac{Actual Runtime}{Ideal Runtime} \times 100$
+    $Efficiency = \frac{S_p}{p}$
+
+    Where $p$ is the number of ranks and $S_p$ is speedup, calculated as:
+
+    $Speedup = \frac{T_1}{T_p}$
+
+    Where $T_1$ is the serial runtime result and $T_p$ is the runtime result when running on $p$ ranks
 
     For each dart count, here is the resulting efficiencies:
+
     **SAME ROUNDS PER PROCESS**
-    | Dart Count | Efficiencies (%) |
+    | Dart Count | Efficiencies     |
     |------------|------------------|
-    |    1E3     |      32.47%      |
-    |    1E6     |      94.84%      |
-    |    1E9     |     100.12%      |
+    |    1E3     |      0.494       |
+    |    1E6     |      0.788       |
+    |    1E9     |      0.988       |
 
     **DIVIDED ROUNDS PER PROCESS**
-    | Dart Count | Efficiencies (%) |
+    | Dart Count | Efficiencies     |
     |------------|------------------|
-    |    1E3     |     118.55%%     |
-    |    1E6     |     147.81%      |
-    |    1E9     |     149.54%      |
+    |    1E3     |     0.505        |
+    |    1E6     |     0.858        |
+    |    1E9     |     0.984        |
 
-    The parallel performance does vary with dart count. The efficiency is supposed to tell us how well the code scales as the number of darts increase. And we can see that in this case here, where the efficiency increases as dart count goes up.
+    The parallel performance does vary with dart count. The efficiency is supposed to tell us how effectively the available cores are utilized in parallel computing to solve a problem. In this case here, the efficiency increases as dart count goes up. In other words, the parallel performance does vary with dart count. This could be because the larger number of cores used could help with scalability and utilization of resources.
 
 7. Going further. Try running your code on different node types on HPCC with varied core counts. In particular, try to ensure that your runs utilize multiple nodes so that the communication network is used. Do you see a change in the communication cost when the job is run on more than one node?
 
-    Yes, when running across different node types there is some latency or communication overhead that effects the performance of the program as I noticed an increase in the runtime.
+    Yes, when running across different node types there is some latency or communication overhead that effects the performance of the program as I noticed an increase in the runtime. This hurts efficiency
 
 ## What to turn-in
 
