@@ -261,7 +261,7 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
 
 4. Now let's change the number of "darts" and ranks. Use your MPI program to compute `pi` using total numbers of "darts" of 1E3, 1E6, and 1E9\. For each dart count, run your code on HPCC with processor counts of 1, 2, 4, 8, 16, 32, and 64\. Keep track of the resulting value of `pi` and the runtimes. Use non-interactive jobs and modify the `submitjob.sb` script as necessary.
 
-    We used the `submitjob.sb` script to run the non-interactive job on HPCC. This calls our `run_pi_calc.sh` which compiles + executes the `ser_pi_calc` program, along with looping through the various process and dart counts. You can view the output in the `slurm-31329571.out`. Here is a table view of our final results (same rounds and divided rounds). The values are the total runtime in seconds:
+    We used the `submitjob.sb` script to run the non-interactive job on HPCC. This calls our `run_pi_calc.sh` which compiles + executes the `ser_pi_calc` program, along with looping through the various process and dart counts. You can view the output in the `logs/slurm-single-node-31329571.out`. Here is a table view of our final results (same rounds and divided rounds). The values are the total runtime in seconds:
 
     **SAME ROUNDS PER PROCESS**
 
@@ -309,7 +309,7 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
     | 32                       | -0.4127          |
     | 64                       | -0.5230          |
 
-    These convergence rates make sense and align with the plots. For example, the same rounds per process plot shows rank 8 (red line) with the steepest slope, which coorelates to the convergence rate results. Additionally, it makes sense that these values are negative because as the dart count goes up, the errors in calculating Pi go down. This does vary slightly by processor and I believe it should vary, although I don't believe it should always correlate to a larger convergence rate value due to various factors such as dimishing returns or resource contention amongst other processes.
+    These convergence rates make sense and align with the plots. For example, the same rounds per process plot shows rank 8 (red line) with the steepest slope, which coorelates to the convergence rate results. Additionally, it makes sense that these values are negative because as the dart count goes up, the errors in calculating Pi go down. This does vary slightly by processor and we believe it should vary, although we don't believe it should always correlate to a larger convergence rate value due to various factors such as dimishing returns or resource contention amongst other processes.
 
 6. For each dart count, make a plot of runtime versus processor count. Each line represents a "strong scaling" study for your code. For each dart count, also plot the "ideal" scaling line. Calculate the parallel scaling efficiency of your code for each dart count. Does the parallel performance vary with dart count? Explain your answer.
 
@@ -337,7 +337,7 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
     *1E9 Darts*
     ![Run-time Vs. Processor Count - 1E9 Darts - Divided Rounds for Each Process](https://github.com/cmse822/project-2-pi-by-mpi-team-6/blob/main/plots/pi_runtime_versus_processor_count_1000000000_darts_divided_round.png)
 
-    Since it specifies only calculating by dart count, I get the average efficiency across all ranks. Here are the equations used:
+    Since it specifies only calculating by dart count, we get the average efficiency across all ranks. Here are the equations used:
 
     $Efficiency = \frac{S_p}{p}$
 
@@ -367,7 +367,9 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
 
 7. Going further. Try running your code on different node types on HPCC with varied core counts. In particular, try to ensure that your runs utilize multiple nodes so that the communication network is used. Do you see a change in the communication cost when the job is run on more than one node?
 
-    Yes, when running across different node types there is some latency or communication overhead that effects the performance of the program as I noticed an increase in the runtime. This hurts efficiency
+    We chose 8 nodes and 8 tasks per node (64 total) to allocate for the SLURM job. The answer to the question is yes. When running across different node types, there is some latency or communication overhead that effects the performance of the program as we noticed an increase in the runtime. However, we didn't really notice a large impact to the runtime, but based on the output of our logs, there is a consistent communication cost when running the SLURM job across multiple nodes.
+
+    We used `submitjob_p4_q7.sb` to facilitate that process of running across different node types. You can additionally see the logs in `logs/slurm-multiple-nodes-31516279.out` and compare it to `logs/slurm-single-node-31329571.out` if interested in seeing the exact differences between the runtimes. For a better format, you can compare the CSV outputs of the single node (`data/data_readme_part4_q4.csv`) run and the multiple node run (`data/data_readme_part4_q7.csv`).
 
 ## What to turn-in
 
@@ -394,7 +396,7 @@ And execute our program:
 mpiexec -n 4 ./ser_pi_calc 100 10000
 ```
 
-### Running SBatch script
+### Running SBatch script -- Single Node
 
 To run the `submitjob.sb` just run in the root of project:
 
@@ -409,9 +411,10 @@ This script was primarily setup for part 4, question 4.
 - The project writeup in this `README.md`
 - `hello.cpp` and the executable (`a.out`) for Part 3
 - `ser_pi_calc.cpp` and the executable (`ser_pi_calc`) for Part 4
-- `data_readme_part4_q2_q3.csv` for the data in Part 4, question 2 and 3
+- `data/data_readme_part4_q2_q3.csv` for the data in Part 4, question 2 and 3
 - `run_pi_calc_part4_q2_q3.sh` for executing the darts/rounds asked in Part 4, question 2 and 3
 - `run_pi_calc.sh` for executing the darts/rounds asked in Part 4, question 4
 - `submitjob.sb` for running a job on HPCC as part of Part 4, question 4
-- `data_readme_part4_q4.csv` used for the plots generated by the `XXX.py` file in Part 4, question 5 and 6
+- `submitjob_p4_q7.sb` for running a job on HPCC as part of Part 4, question 7
+- `data/data_readme_part4_q4.csv` used for the plots generated by the `XXX.py` file in Part 4, question 5 and 6
 - `plots/` folder containing the plotted assets for the writeup

@@ -1,0 +1,463 @@
+
+Lmod is automatically replacing "GCC/9.3.0" with "intel-compilers/2021.2.0".
+
+
+Lmod is automatically replacing "GCC/9.3.0" with "intel-compilers/2021.2.0".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) zlib/1.2.11
+
+The following have been reloaded with a version change:
+  1) GCCcore/9.3.0 => GCCcore/10.3.0     2) binutils/2.34 => binutils/2.36.1
+
+Running with 1 ranks, 1000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 1000
+
+Found 3.147560, Real value of PI: 3.1415926535897 
+Time taken: 0.004132
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 100
+	Darts per process: 1000
+
+Found 3.147560, Real value of PI: 3.1415926535897 
+Time taken: 0.003897
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 2 ranks, 1000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 500
+
+Found 3.140960, Real value of PI: 3.1415926535897 
+Time taken: 0.002458
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 50
+	Darts per process: 500
+
+Found 3.149760, Real value of PI: 3.1415926535897 
+Time taken: 0.001092
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 4 ranks, 1000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 250
+
+Found 3.149760, Real value of PI: 3.1415926535897 
+Time taken: 0.001651
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 25
+	Darts per process: 250
+
+Found 3.148160, Real value of PI: 3.1415926535897 
+Time taken: 0.000280
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 8 ranks, 1000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 125
+
+Found 3.156800, Real value of PI: 3.1415926535897 
+Time taken: 0.003341
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 12
+	Darts per process: 125
+
+Found 3.173333, Real value of PI: 3.1415926535897 
+Time taken: 0.000324
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 16 ranks, 1000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 62
+
+Found 3.145161, Real value of PI: 3.1415926535897 
+Time taken: 0.008172
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 6
+	Darts per process: 62
+
+Found 3.182796, Real value of PI: 3.1415926535897 
+Time taken: 0.000044
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 32 ranks, 1000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 31
+
+Found 3.161290, Real value of PI: 3.1415926535897 
+Time taken: 0.009782
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 3
+	Darts per process: 31
+
+Found 3.053763, Real value of PI: 3.1415926535897 
+Time taken: 0.000312
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 64 ranks, 1000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 15
+
+Found 3.173333, Real value of PI: 3.1415926535897 
+Time taken: 0.023591
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 1
+	Darts per process: 15
+
+Found 2.400000, Real value of PI: 3.1415926535897 
+Time taken: 0.001885
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 1 ranks, 1000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 1000000
+
+Found 3.141650, Real value of PI: 3.1415926535897 
+Time taken: 3.522501
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 100
+	Darts per process: 1000000
+
+Found 3.141650, Real value of PI: 3.1415926535897 
+Time taken: 3.535786
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 2 ranks, 1000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 500000
+
+Found 3.141456, Real value of PI: 3.1415926535897 
+Time taken: 1.811162
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 50
+	Darts per process: 500000
+
+Found 3.141527, Real value of PI: 3.1415926535897 
+Time taken: 0.905665
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 4 ranks, 1000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 250000
+
+Found 3.141527, Real value of PI: 3.1415926535897 
+Time taken: 1.072650
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 25
+	Darts per process: 250000
+
+Found 3.141660, Real value of PI: 3.1415926535897 
+Time taken: 0.268007
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 8 ranks, 1000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 125000
+
+Found 3.141575, Real value of PI: 3.1415926535897 
+Time taken: 0.497012
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 12
+	Darts per process: 125000
+
+Found 3.142779, Real value of PI: 3.1415926535897 
+Time taken: 0.059995
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 16 ranks, 1000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 62500
+
+Found 3.141660, Real value of PI: 3.1415926535897 
+Time taken: 0.265754
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 6
+	Darts per process: 62500
+
+Found 3.141579, Real value of PI: 3.1415926535897 
+Time taken: 0.015277
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 32 ranks, 1000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 31250
+
+Found 3.142486, Real value of PI: 3.1415926535897 
+Time taken: 0.140478
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 3
+	Darts per process: 31250
+
+Found 3.146667, Real value of PI: 3.1415926535897 
+Time taken: 0.004685
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 64 ranks, 1000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 15625
+
+Found 3.142538, Real value of PI: 3.1415926535897 
+Time taken: 0.080933
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 1
+	Darts per process: 15625
+
+Found 3.161600, Real value of PI: 3.1415926535897 
+Time taken: 0.002448
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 1 ranks, 1000000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 1000000000
+
+Found 3.141587, Real value of PI: 3.1415926535897 
+Time taken: 3546.183326
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 100
+	Darts per process: 1000000000
+
+Found 3.141587, Real value of PI: 3.1415926535897 
+Time taken: 3551.835765
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 2 ranks, 1000000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 500000000
+
+Found 3.141586, Real value of PI: 3.1415926535897 
+Time taken: 1862.752329
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 50
+	Darts per process: 500000000
+
+Found 3.141571, Real value of PI: 3.1415926535897 
+Time taken: 931.564766
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 4 ranks, 1000000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 250000000
+
+Found 3.141571, Real value of PI: 3.1415926535897 
+Time taken: 991.154610
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 25
+	Darts per process: 250000000
+
+Found 3.141580, Real value of PI: 3.1415926535897 
+Time taken: 247.540184
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 8 ranks, 1000000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 125000000
+
+Found 3.141577, Real value of PI: 3.1415926535897 
+Time taken: 529.453711
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 12
+	Darts per process: 125000000
+
+Found 3.141611, Real value of PI: 3.1415926535897 
+Time taken: 63.532060
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 16 ranks, 1000000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 62500000
+
+Found 3.141580, Real value of PI: 3.1415926535897 
+Time taken: 247.232107
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 6
+	Darts per process: 62500000
+
+Found 3.141627, Real value of PI: 3.1415926535897 
+Time taken: 14.826943
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 32 ranks, 1000000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 31250000
+
+Found 3.141625, Real value of PI: 3.1415926535897 
+Time taken: 123.688184
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 3
+	Darts per process: 31250000
+
+Found 3.141602, Real value of PI: 3.1415926535897 
+Time taken: 3.708403
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+Running with 64 ranks, 1000000000 darts, and 100 rounds
+Starting serial version of pi calculation using dartboard algorithm...
+=====================================================
+SAME ROUND FOR EACH PROCESSS
+	Darts per process: 15625000
+
+Found 3.141621, Real value of PI: 3.1415926535897 
+Time taken: 64.721125
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+=====================================================
+DIVIDE ROUND AMONG PROCESSES
+	Rounds per process: 1
+	Darts per process: 15625000
+
+Found 3.141440, Real value of PI: 3.1415926535897 
+Time taken: 0.647209
+FINISHED DIVIDE ROUND AMONG PROCESSES
+=====================================================
+Finished 
+JobId=31548443 JobName=multiple_nodes
+   UserId=nosowsky(927773) GroupId=CMSE822_SS24_S001(2887) MCS_label=N/A
+   Priority=57418 Nice=0 Account=general QOS=nosowsky
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=03:34:22 TimeLimit=04:00:00 TimeMin=N/A
+   SubmitTime=2024-02-20T17:51:16 EligibleTime=2024-02-20T17:51:16
+   AccrueTime=2024-02-20T17:51:16
+   StartTime=2024-02-20T17:51:18 EndTime=2024-02-20T21:51:18 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2024-02-20T17:51:18 Scheduler=Main
+   Partition=general-short AllocNode:Sid=dev-amd20:65093
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=lac-[200-207]
+   BatchHost=lac-200
+   NumNodes=8 NumCPUs=64 NumTasks=64 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=64,mem=64G,node=8,billing=9961
+   AllocTRES=cpu=64,mem=64G,node=8,billing=9961
+   Socks/Node=* NtasksPerN:B:S:C=8:0:*:* CoreSpec=*
+   MinCPUsNode=8 MinMemoryNode=8G MinTmpDiskNode=0
+   Features=[intel14|intel16|intel18|(amr|acm)|nvf|nal|nif] DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/mnt/ufs18/home-261/nosowsky/CSE822/project-2-pi-by-mpi-team-6/submitjob_p4_q7.sb
+   WorkDir=/mnt/ufs18/home-261/nosowsky/CSE822/project-2-pi-by-mpi-team-6
+   Comment=stdout=/mnt/ufs18/home-261/nosowsky/CSE822/project-2-pi-by-mpi-team-6/slurm-31548443.out 
+   StdErr=/mnt/ufs18/home-261/nosowsky/CSE822/project-2-pi-by-mpi-team-6/slurm-31548443.out
+   StdIn=/dev/null
+   StdOut=/mnt/ufs18/home-261/nosowsky/CSE822/project-2-pi-by-mpi-team-6/slurm-31548443.out
+   Power=
+   
+

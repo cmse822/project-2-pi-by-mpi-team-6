@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # FILENAME = "data.csv"
-FILENAME = "data_readme_part4_q4.csv"
+FILENAME = "data/data_readme_part4_q4.csv"
 SAME_ROUND = "SAME ROUND FOR EACH PROCESS"
 DIVIDE_ROUND = "DIVIDE ROUND AMONG PROCESSES"
 DEFAULT_ROUNDS = 100
@@ -11,6 +11,15 @@ TRUE_PI = 3.141592653589793
 df = pd.read_csv(FILENAME)
 
 def plot_pi_error_for_darts_used(run_type):
+    """
+    Plot the error in the estimation of pi based on the number of darts used, for a given run type.
+
+    Parameters:
+    - run_type: str, the type of run for which the error is being plotted
+
+    Returns:
+    - None
+    """
     df = pd.read_csv(FILENAME)
     df_run_type = df[df['run_type'] == run_type]
     df_run_type['error'] = abs(df_run_type['pi_est'] - TRUE_PI)
@@ -35,6 +44,16 @@ def plot_pi_error_for_darts_used(run_type):
         plt.savefig('plots/pi_error_for_darts_used_divided_round.png')
 
 def plot_runtime_versus_processor_count(run_type, total_darts):
+    """
+    Plots the runtime versus processor count for a specified run type and total darts.
+
+    Args:
+        run_type (str): The type of run
+        total_darts (int): The total number of darts
+
+    Returns:
+        None
+    """
     plt.figure(figsize=(10, 6))
     
     # Filter the data for the specified run type and total darts
@@ -51,15 +70,6 @@ def plot_runtime_versus_processor_count(run_type, total_darts):
         efficiency = (speedup / df_run_type_darts['ranks'])
     else:
         efficiency = speedup / df_run_type_darts['ranks']
-    
-    # print("ACTUAL")
-    # print(df_run_type_darts['time_taken'])
-    # print("IDEAL")
-    # print(ideal_scaling_line)
-    # print("SPEEDUP")
-    # print(speedup)
-    # print("EFFICIENCY")
-    # print(efficiency)
 
     overall_efficiency = efficiency.sum() / df_run_type_darts['ranks'].count()
     rounded_efficiency = round(overall_efficiency, 3)
@@ -78,12 +88,31 @@ def plot_runtime_versus_processor_count(run_type, total_darts):
         plt.savefig('plots/pi_runtime_versus_processor_count_' + str(total_darts) + '_darts_divided_round.png')
 
 def compute_convergence_rate(x, y):
+    """
+    Compute the convergence rate of the given data points.
+
+    Parameters:
+    x: The input data points for the x-axis.
+    y: The input data points for the y-axis.
+
+    Returns:
+    float: The computed convergence rate.
+    """
     log_x = np.log(x)
     log_y = np.log(y)
     slope, _ = np.polyfit(log_x, log_y, 1)
     return slope
 
 def print_pi_convergence_rate_for_darts_used(run_type):
+    """
+    Calculate the convergence rate for the given run type.
+
+    Parameters:
+    run_type (str): The type of run to calculate the convergence rate for.
+
+    Returns:
+    None
+    """
     df_run_type = df[df['run_type'] == run_type]
     df_run_type['error'] = abs(df_run_type['pi_est'] - TRUE_PI)
     grouped = df_run_type.groupby('ranks')
