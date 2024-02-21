@@ -244,7 +244,7 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
     |   3   |   0.00874055              |
     |   4   |   0.00653383              |
 
-    As the number of ranks (processes) goes up, the total runtime drops. This makes sense, as the number of darts per process also as the number of ranks increases. This means less dart board scoring or iterations needed per process, or an overall reduction in cpu time.
+    As the number of ranks (processes) goes up, the total runtime drops. This makes sense, as the number of darts per process decreases as the number of ranks increases. This means less dart board scoring or iterations needed per process, or an overall reduction in cpu time.
 
 3. Now, divide the number of "rounds" up amongst the number of ranks using the appropriate MPI routines to decide how to distribute the work. Again, run the program on 1 to 4 ranks. How does the runtime vary now?
 
@@ -367,7 +367,7 @@ Pi is the ratio of a circle's circumference to its diameter. As such, the value 
 
 7. Going further. Try running your code on different node types on HPCC with varied core counts. In particular, try to ensure that your runs utilize multiple nodes so that the communication network is used. Do you see a change in the communication cost when the job is run on more than one node?
 
-    We chose 8 nodes and 8 tasks per node (64 total) to allocate for the SLURM job. The answer to the question is yes. When running across different node types, there is some latency or communication overhead that effects the performance of the program as we noticed an increase in the runtime. However, we didn't really notice a large impact to the runtime, but based on the output of our logs, there is a consistent communication cost when running the SLURM job across multiple nodes.
+    We chose 4 nodes and 16 tasks per node (64 total) to allocate for the SLURM job. The answer to the question is yes. When running across different node types, there is some latency or communication overhead that effects the performance of the program as we noticed an increase in the runtime. However, we didn't really notice a large impact to the runtime, but based on the output of our logs, there is a consistent communication cost when running the SLURM job across multiple nodes.
 
     We used `submitjob_p4_q7.sb` to facilitate that process of running across different node types. You can additionally see the logs in `logs/slurm-multiple-nodes-31516279.out` and compare it to `logs/slurm-single-node-31329571.out` if interested in seeing the exact differences between the runtimes. For a better format, you can compare the CSV outputs of the single node (`data/data_readme_part4_q4.csv`) run and the multiple node run (`data/data_readme_part4_q7.csv`).
 
